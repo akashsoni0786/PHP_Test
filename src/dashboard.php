@@ -59,6 +59,11 @@ if(isset($_SESSION['mails'])){
                             console.log(ar2[i]['mail']);
                             t += '<tr><td>'+ar2[i]['mail']+'</td><td>'+ar2[i]['pass']+'</td></tr>';
                         }
+                        if(ar.toLowerCase() == ar2[i]['pass'].slice(0,ar.length))
+                        {
+                            console.log(ar2[i]['mail']);
+                            t += '<tr><td>'+ar2[i]['mail']+'</td><td>'+ar2[i]['pass']+'</td></tr>';
+                        }
                         
                     }
                        $("#allpersons").html(t);
