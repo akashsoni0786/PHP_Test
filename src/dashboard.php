@@ -13,10 +13,16 @@ if(isset($_SESSION['mails'])){
     <title>Dashboard</title>
 </head>
 <body>
+    
+    <br>
+    <input id="search" placeholder="Search here"/>
+    <br>
     <h3>All Employees</h3>
+    <br>
     <table id="allpersons" style="border: 1px solid red;">
 
     </table>
+    <br>
 <button id="logout">Logout</button>
     <script>
 
@@ -34,7 +40,31 @@ if(isset($_SESSION['mails'])){
                     }
                 });
             }
-            
+        $("#search").keyup(function(){
+            var ar = $("#search").val();
+            $.ajax({
+                    url :'server.php',
+                    type :'POST',
+                    data :{search : true},
+                    success:function(result)
+                    {
+                    ar2 = JSON.parse(result);
+                    console.log(ar2);
+                    var t= '';
+                    for(let i=0;i<3;i++)
+                    {
+                        
+                        if(ar.toLowerCase() == ar2[i]['mail'].slice(0,ar.length))
+                        {
+                            console.log(ar2[i]['mail']);
+                            t += '<tr><td>'+ar2[i]['mail']+'</td><td>'+ar2[i]['pass']+'</td></tr>';
+                        }
+                        
+                    }
+                       $("#allpersons").html(t);
+                    }
+                });
+        });
         $("#logout").click(function(){
             window.location = 'logout.php';
         });
